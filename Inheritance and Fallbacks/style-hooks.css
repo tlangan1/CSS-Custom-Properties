@@ -1,0 +1,43 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+}
+
+.controls label {
+  padding-right: 1rem;
+}
+
+.controls .control {
+  padding-bottom: 1rem;
+}
+
+.divider-color {
+  initial-value: white;
+}
+
+sl-image-comparer {
+  --divider-width: 1px;
+  --divider-color: white;
+  --handle-color: white;
+  --handle-size: 1rem;
+  margin-top: 2rem;
+}
+
+sl-image-comparer::part(divider) {
+  background-color: var(--divider-color);
+}
+
+sl-image-comparer::part(handle) {
+  background-color: var(--handle-color);
+}
+
+sl-image-comparer img {
+  width: 50vw;
+}

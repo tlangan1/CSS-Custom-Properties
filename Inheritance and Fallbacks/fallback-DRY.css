@@ -1,0 +1,48 @@
+@property --hover-contrast-color {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: white;
+}
+
+button {
+  border: 0.1em solid black;
+  background: transparent;
+  --hover-contrast-color-2: white;
+}
+
+.target-for-fix-1 {
+  --alternate-hover-contrast-color: green;
+}
+
+button:hover {
+  background-color: var(--color);
+  color: var(--hover-contrast-color, var(--alternate-hover-contrast-color));
+  border-radius: 20%;
+}
+
+button.target-for-fix-2:hover {
+  background-color: var(--color);
+  color: var(--hover-contrast-color-2);
+  border-radius: 20%;
+}
+
+.cancel {
+  --color: red;
+}
+
+.postpone {
+  --color: blue;
+}
+
+.purchase {
+  --hover-contrast-color-2: black;
+}
+
+p span {
+  --_color: var(--color, blue);
+  color: var(--_color);
+}
+
+p span.has-a-color-defined {
+  --color: red;
+}

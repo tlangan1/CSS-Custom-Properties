@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link rel="stylesheet" href="./unsupported-feature-nuance.css" />
+  </head>
+  <body>
+    <div class="target-1">
+      <p>
+        In this example, we see that a browser will throw out an unsupported
+        feature in the cascade. In this case tom() is not supported so it uses
+        the previous background-color reference of <span>red</span>.
+      </p>
+      <!-- <dialog> -->
+      <pre>
+      <style>
+        .target-1 {
+          background: red;
+          background: tom(4);
+        }
+
+        .target-1 > p {
+          background-color: black;
+          color: white;
+        }
+
+        .target-1 > p > span {
+          color: red;
+        }
+      </style>
+      </pre>
+      <!-- </dialog> -->
+    </div>
+    <div class="target-2">
+      <p>
+        In this example, we see the consequence of using a potentially
+        unsupported CSS feature to assign the value of a custom property. Since
+        the browser does not validate the syntax of a custom property assignment
+        at parse time then this can create a problem. In this case tom() is an
+        unsupported feature and at computed value time the browser discovers the
+        --color custom property has an invalid color value so it reverts to
+        <em>unset</em> which for the non-inherited property, background-color,
+        results in the value <em>initial</em> which translates to
+        <em>transparent</em>.
+      </p>
+    </div>
+    <div class="target-3">
+      <p>
+        In this example we see how the @supports at rule comes to the rescue in
+        the situation above. In fact, in this example I am using the @supports
+        with a negation syntax as in <em>(not tom(4))</em> to set the
+        background-color of this area to blue and the font color to white.
+      </p>
+    </div>
+  </body>
+  <script>
+    addEventListener("DOMContentLoaded", createEventListeners);
+
+    function createEventListeners() {
+      document
+        .querySelector(".target-1")
+        .addEventListener("click", toggleCSSVisibility);
+
+      function toggleCSSVisibility(e) {
+        var displayValue = document.querySelector("style").style.display;
+        if (displayValue == "none" || displayValue == "") {
+          document.querySelector("style").style.display = "block";
+        } else document.querySelector("style").style.display = "none";
+      }
+    }
+  </script>
+</html>

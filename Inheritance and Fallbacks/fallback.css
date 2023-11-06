@@ -1,0 +1,34 @@
+@import url("fallback-images.css");
+
+@property --row-count {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+.images {
+  /* *** from fallback-2.css        *** */
+  /* grid padding is 3vh and gap is 2vh */
+  /* ***                            *** */
+
+  /* *** This value is set in JavaScript and represents the number of rows  *** */
+  /* *** required to present the number of items to be rendered and assumes *** */
+  /* *** there are three to a row. That is, round up [item count] mod       *** */
+  /* *** three. This must be done in JavaScript since css support for round *** */
+  /* *** is not supported in most browsers as of 10/08/2023.                *** */
+  --row-count: 2;
+  grid-template-rows: repeat(
+    min(3, var(--row-count)),
+    calc((100vh - 6vh - 3rem) / var(--row-count))
+  );
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* Note, position relative is necessary for z-index to have effect */
+  z-index: 2;
+  position: relative;
+}

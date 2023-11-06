@@ -1,0 +1,20 @@
+span {
+  --some-custom-property: red;
+  color: var(--some-custom-property);
+}
+
+div {
+  --some-custom-property: 50vh;
+  height: var(--some-custom-property);
+}
+
+p {
+  --some-custom-property: 20px 50px 50px 30px;
+  padding: var(--some-custom-property);
+}
+
+p:hover {
+  padding: 0;
+  --some-custom-property: 2s;
+  transition: var(--some-custom-property);
+}

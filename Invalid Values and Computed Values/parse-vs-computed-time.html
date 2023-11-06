@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link rel="stylesheet" href="./parse-vs-computed-time.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="target-1">
+        <p>
+          This example illustrates that the browser does not check the syntax of
+          a custom property at parse time, it checks it at computed value time.
+          In this case 2px is not a valid color and so the background-color is
+          set to `unset` and since background-color is not inherited this is
+          equivalent to `initial` which is <em>transparent</em>.
+        </p>
+      </div>
+      <div class="target-2">
+        <p>
+          This is another example of the behavior alluded to above. Again, in
+          this case, 2px is not a valid color but since this custom property has
+          been <em>registered</em> with an initial-value of
+          <span>sky blue</span> then the browser uses that as a fallback.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

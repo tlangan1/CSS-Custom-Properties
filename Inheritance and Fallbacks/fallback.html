@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link rel="stylesheet" href="./fallback.css" />
+    <link rel="stylesheet" href="./fallback-list.css" />
+  </head>
+  <body>
+    <div class="controls">
+      <p>Hover over each image until it changes shape and border color.</p>
+      <input
+        type="number"
+        name="itemCount"
+        id="itemCount"
+        class="form-control"
+        value="6"
+        min="0"
+      />
+    </div>
+    <section class="images">
+      <img src="../images/nature 1.jpg" alt="" />
+      <img src="../images/nature 2.jpg" alt="" />
+      <img src="../images/nature 3.jpg" alt="" />
+      <img src="../images/nature 4.jpg" alt="" />
+      <img src="../images/nature 5.jpg" alt="" />
+      <img src="../images/nature 6.jpg" alt="" />
+    </section>
+  </body>
+  <script type="module">
+    import { setItemCount } from "./fallback.js";
+    document
+      .querySelector(".form-control")
+      .addEventListener("change", setItemCount);
+  </script>
+</html>

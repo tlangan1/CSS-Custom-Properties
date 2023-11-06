@@ -1,0 +1,55 @@
+@property --scale {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+
+@property --rotate {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@property --border-color {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: skyblue;
+}
+
+@property --border-radius {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0%;
+}
+
+.images {
+  padding: 3vh;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2vh;
+}
+
+.images img {
+  height: 80%;
+  width: 80%;
+  object-fit: cover;
+  border: solid 1rem var(--border-color);
+  border-radius: var(--border-radius);
+  transform: rotate(var(--rotate)) scale(var(--scale));
+  transition: 0.5s;
+}
+
+.images img:nth-child(odd) {
+  --rotate: -6deg;
+}
+
+.images img:nth-child(3n + 1) {
+  --rotate: 8deg;
+}
+
+.images img:hover {
+  --scale: 1.4;
+  --border-color: #c0ffee;
+  --border-radius: 33%;
+  z-index: 1;
+}

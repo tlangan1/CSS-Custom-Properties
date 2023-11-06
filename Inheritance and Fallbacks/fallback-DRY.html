@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link rel="stylesheet" href="./fallback-DRY.css" />
+  </head>
+  <body>
+    <p>
+      Click <button class="button-text-color-fixer-1">here</button> to toggle on
+      and off the problem with hovering on the buttons. The problem is that the
+      text is not turning white when hovering over them. This problem occurs
+      when you override a registered property using the var() function with a
+      custom property that is not defined. This condition appears to cause the
+      browser to abort the processing of that CSS statement and even the
+      initial-value is not used. In this case the statement using the override
+      is
+      <b
+        >color: var(--hover-contrast-color,
+        var(--alternate-hover-contrast-color));</b
+      >
+      and the undefined custom property override being referenced is
+      <b>--alternate-hover-contrast-color</b>.
+    </p>
+    <p>
+      The code that is executed defines --alternate-hover-contrast-color as the
+      color green and even though that is not used, the browser now correctly
+      applies the initial-value from the registered property.
+      <b>I consider this a bug.</b>
+    </p>
+    <p>
+      This is an example of using a registered property which, by definition is
+      always defined and hence always has a fallback, the initial-value in the
+      definition. However, this is not ideal on the "purchase" button as its
+      background is white, the same color as the custom properties initial
+      value. In this situation it is better to use a custom property as a
+      fallback so that it can be overridden.
+    </p>
+    <p>Click <button class="purchase-fixer-2">here</button> to do so.</p>
+    <div id="target">
+      <button class="purchase" id="target-for-fix-2">Purchase</button>
+      <button class="cancel">Cancel</button>
+      <button class="postpone">Postpone</button>
+    </div>
+    <p>
+      This paragraph has an example of a <span>pseudo-private</span> property in
+      which the fallback is defined in the
+      <span class="has-a-color-defined">pseudo-private</span> custom property
+      definition.
+    </p>
+  </body>
+  <script type="module">
+    import {
+      toggleUndefinedProperty,
+      toggleCustomPropertyAsFallback,
+    } from "./fallback-DRY.js";
+
+    document
+      .querySelector(".button-text-color-fixer-1")
+      .addEventListener("click", toggleUndefinedProperty);
+
+    document
+      .querySelector(".purchase-fixer-2")
+      .addEventListener("click", toggleCustomPropertyAsFallback);
+  </script>
+</html>

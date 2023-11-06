@@ -1,0 +1,24 @@
+div {
+  height: 33vh;
+}
+
+.target-2 {
+  --color: tom(4);
+  background: red;
+  background: var(--color);
+}
+
+.target-3 {
+  --color: tom(4);
+  background: red;
+  background: var(--color);
+}
+
+@supports (not tom(4)) {
+  .target-3 {
+    --color: blue;
+  }
+  .target-3 > p {
+    color: white;
+  }
+}

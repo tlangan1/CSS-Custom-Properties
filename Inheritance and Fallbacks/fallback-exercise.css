@@ -1,0 +1,20 @@
+.cut-corner {
+  clip-path: polygon(
+    calc(100% - var(--corner-size-x, var(--corner-size))) 0,
+    100% var(--corner-size-y, var(--corner-size)),
+    100% 100%,
+    0 100%,
+    0 0
+  );
+}
+
+#a {
+  background-color: hotpink;
+  --corner-size: 3em;
+}
+
+#b {
+  background-color: aqua;
+  --corner-size-x: 10px;
+  --corner-size-y: 5em;
+}

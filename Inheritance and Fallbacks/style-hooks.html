@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/themes/light.css"
+    />
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/shoelace-autoloader.js"
+    ></script>
+    <link rel="stylesheet" href="style-hooks.css" />
+  </head>
+  <body>
+    <section class="container">
+      <div class="controls">
+        <div class="control">
+          <label for="divider-width">Divider Width in Pixels:</label>
+          <input
+            type="number"
+            class="divider-width"
+            name="divider-width"
+            id="divider-width"
+            value="1"
+          />
+        </div>
+        <div class="control">
+          <label for="handle-size">Handle Size in Rems:</label>
+          <input
+            type="number"
+            class="handle-size"
+            name="handle-size"
+            id="handle-size"
+            value="1"
+          />
+        </div>
+        <div class="control">
+          <label for="divider-color">Divider Color:</label>
+          <input
+            type="color"
+            class="divider-color"
+            name="divider-color"
+            id="divider-color"
+            value="#ffffff"
+          />
+        </div>
+        <div class="control">
+          <label for="handle-color">Handle Color:</label>
+          <input
+            type="color"
+            class="handle-color"
+            name="handle-color"
+            id="handle-color"
+            value="#ffffff"
+          />
+        </div>
+      </div>
+      <sl-image-comparer>
+        <img
+          slot="before"
+          src="./images/cats greyscale image.avif"
+          alt="Grayscale version of kittens in a basket looking around."
+        />
+        <img
+          slot="after"
+          src="./images/cats color image.avif"
+          alt="Color version of kittens in a basket looking around."
+        />
+      </sl-image-comparer>
+    </section>
+  </body>
+  <script type="module">
+    import {
+      setDividerWidth,
+      setHandleSize,
+      setDividerColor,
+      setHandleColor,
+    } from "./style-hooks.js";
+    document
+      .querySelector(".divider-width")
+      .addEventListener("change", setDividerWidth);
+    document
+      .querySelector(".handle-size")
+      .addEventListener("change", setHandleSize);
+    document
+      .querySelector(".divider-color")
+      .addEventListener("change", setDividerColor);
+    document
+      .querySelector(".handle-color")
+      .addEventListener("change", setHandleColor);
+  </script>
+</html>

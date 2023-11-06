@@ -1,0 +1,10 @@
+@property --complex-custom-property-1 {
+  syntax: "*";
+  inherits: true;
+  initial-value: 100px 100px;
+}
+
+body {
+  width: 40vw;
+  margin: var(--complex-custom-property-1);
+}

@@ -1,0 +1,36 @@
+div {
+  height: 25vh;
+}
+
+.test-1 {
+  --color: tom(4);
+  background: rgb(0 0 0);
+  background: green;
+  background: var(--color);
+}
+
+.test-2 {
+  background: rgb(0 0 0);
+  background: green;
+  background: tom(4);
+}
+
+.test-3 {
+  background: rgb(0 0 0);
+  background: green;
+  background: tom(var(--undefined-custom-property));
+}
+
+:root {
+  --test-2-color: tom(4);
+}
+
+@supports (color: lch(50 230 0)) {
+  :root {
+    --test-2-color: lch(50 230 0);
+  }
+}
+
+.test-4 {
+  background: var(--test-2-color);
+}

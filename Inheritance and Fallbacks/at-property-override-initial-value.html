@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      @property --font-color {
+        syntax: "<color>";
+        inherits: true;
+        initial-value: black;
+      }
+    </style>
+  </head>
+  <body>
+    <p style="color: var(--font-color)">This is a paragraph.</p>
+    <p style="color: var(--font-color, red)">This is a paragraph.</p>
+  </body>
+</html>

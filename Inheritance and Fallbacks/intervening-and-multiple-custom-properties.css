@@ -1,0 +1,22 @@
+:root {
+  --some-defined-custom-property-1: red;
+  --some-defined-custom-property-2: blue;
+  --some-defined-custom-property-3: green;
+}
+
+div {
+  height: 50vh;
+}
+
+.intervening {
+  background-color: blue;
+  background-color: var(--some-undefined-custom-property);
+  /* background-color: var(--some-defined-custom-property-3); */
+  background-color: red;
+}
+
+.multiple {
+  background-color: var(--some-defined-custom-property-1);
+  background-color: var(--some-defined-custom-property-2);
+  background-color: var(--some-defined-custom-property-3);
+}
