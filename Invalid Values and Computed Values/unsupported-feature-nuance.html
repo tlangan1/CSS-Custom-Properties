@@ -8,33 +8,25 @@
     <link rel="stylesheet" href="./unsupported-feature-nuance.css" />
   </head>
   <body>
-    <div class="target-1">
+    <div class="target target-1" target1>
       <p>
         In this example, we see that a browser will throw out an unsupported
         feature in the cascade. In this case tom() is not supported so it uses
         the previous background-color reference of <span>red</span>.
       </p>
-      <!-- <dialog> -->
-      <pre>
-      <style>
-        .target-1 {
-          background: red;
-          background: tom(4);
-        }
-
-        .target-1 > p {
-          background-color: black;
-          color: white;
-        }
-
-        .target-1 > p > span {
-          color: red;
-        }
-      </style>
+      <dialog>
+        <pre>
+<style>
+.target-1 {
+    background: red;
+    background: tom(4);
+}
+</style>
       </pre>
-      <!-- </dialog> -->
+        <button>Close</button>
+      </dialog>
     </div>
-    <div class="target-2">
+    <div class="target target-2">
       <p>
         In this example, we see the consequence of using a potentially
         unsupported CSS feature to assign the value of a custom property. Since
@@ -46,8 +38,19 @@
         results in the value <em>initial</em> which translates to
         <em>transparent</em>.
       </p>
+      <dialog>
+        <pre>
+<style>.target-2 {
+  --color: tom(4);
+  background: red;
+  background: var(--color);
+}
+</style>
+        </pre>
+        <button>Close</button>
+      </dialog>
     </div>
-    <div class="target-3">
+    <div class="target target-3">
       <p>
         In this example we see how the @supports at rule comes to the rescue in
         the situation above. In fact, in this example I am using the @supports
@@ -61,14 +64,43 @@
 
     function createEventListeners() {
       document
-        .querySelector(".target-1")
-        .addEventListener("click", toggleCSSVisibility);
+        .querySelectorAll(".target")
+        .forEach((radio) =>
+          radio.addEventListener("click", toggleCSSVisibility)
+        );
+
+      //   document
+      //     .querySelector(".target-1")
+      //     .addEventListener("click", toggleCSSVisibility);
+
+      document
+        .querySelectorAll(".target > dialog > button")
+        .forEach((radio) => radio.addEventListener("click", closeDialog));
+
+      // document
+      // .querySelector(".target-1 > dialog > button")
+      // .addEventListener("click", closeDialog);
+
+      document
+        .querySelectorAll(".target > dialog")
+        .forEach((radio) => radio.addEventListener("click", closeDialog));
+
+      //   document
+      //     .querySelector(".target-1 > dialog")
+      //     .addEventListener("click", closeDialog);
+
+      /* *** Helper functions *** */
 
       function toggleCSSVisibility(e) {
         var displayValue = document.querySelector("style").style.display;
         if (displayValue == "none" || displayValue == "") {
           document.querySelector("style").style.display = "block";
+          document.querySelector("dialog").showModal();
         } else document.querySelector("style").style.display = "none";
+      }
+
+      function closeDialog(e) {
+        document.querySelector("dialog").close();
       }
     }
   </script>

@@ -2,10 +2,18 @@ div {
   height: 33vh;
 }
 
-.target-2 {
-  --color: tom(4);
-  background: red;
-  background: var(--color);
+dialog::backdrop {
+  background-color: black;
+  opacity: 0.35;
+}
+
+.target-1 > p {
+  background-color: black;
+  color: white;
+}
+
+.target-1 > p > span {
+  color: red;
 }
 
 .target-3 {
