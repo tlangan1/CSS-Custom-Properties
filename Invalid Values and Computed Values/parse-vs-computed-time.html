@@ -8,8 +8,12 @@
     <link rel="stylesheet" href="./parse-vs-computed-time.css" />
   </head>
   <body>
+    <h2>
+      You can click on any of three bordered areas below to see the relevant
+      CSS.
+    </h2>
     <div class="container">
-      <div class="target-1">
+      <div class="target target-1">
         <p>
           This example illustrates that the browser does not check the syntax of
           a custom property at parse time, it checks it at computed value time.
@@ -17,15 +21,46 @@
           set to `unset` and since background-color is not inherited this is
           equivalent to `initial` which is <em>transparent</em>.
         </p>
+        <dialog>
+          <pre>
+<style>
+.target-1 {
+  --color: 2px;
+  background: red;
+  background: var(--color);
+}
+</style>
+          </pre>
+          <button>Close</button>
+        </dialog>
       </div>
-      <div class="target-2">
+      <div class="target target-2">
         <p>
           This is another example of the behavior alluded to above. Again, in
           this case, 2px is not a valid color but since this custom property has
           been <em>registered</em> with an initial-value of
           <span>sky blue</span> then the browser uses that as a fallback.
         </p>
+        <dialog>
+          <pre>
+<style>
+@property --custom-property-color {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: skyblue;
+}
+
+.target-2 {
+  --custom-property-color: 2px;
+  background: red;
+  background: var(--custom-property-color);
+}
+</style>
+          </pre>
+          <button>Close</button>
+        </dialog>
       </div>
     </div>
   </body>
+  <script src="./relevant-CSS.js"></script>
 </html>

@@ -1,11 +1,5 @@
-@property --custom-property-color {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: skyblue;
-}
-
 /* *** TODO: once I have studied flex enough make these *** */
-/* *** three rows span the entire view port height. *** */
+/* *** three rows span the entire view port height properly. *** */
 .container {
   display: flex;
   flex-direction: column;
@@ -18,16 +12,8 @@ div {
   margin-bottom: 2vh;
 }
 
-.target-1 {
-  --color: 2px;
-  background: red;
-  background: var(--color);
-}
-
-.target-2 {
-  --custom-property-color: 2px;
-  background: red;
-  background: var(--custom-property-color);
+div > div {
+  border: solid;
 }
 
 .target-2 > p > span {
