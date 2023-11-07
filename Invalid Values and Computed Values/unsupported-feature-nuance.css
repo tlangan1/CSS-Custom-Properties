@@ -1,5 +1,7 @@
 div {
-  height: 33vh;
+  height: 25vh;
+  border: solid;
+  margin: 1rem;
 }
 
 dialog::backdrop {
@@ -14,19 +16,4 @@ dialog::backdrop {
 
 .target-1 > p > span {
   color: red;
-}
-
-.target-3 {
-  --color: tom(4);
-  background: red;
-  background: var(--color);
-}
-
-@supports (not tom(4)) {
-  .target-3 {
-    --color: blue;
-  }
-  .target-3 > p {
-    color: white;
-  }
 }

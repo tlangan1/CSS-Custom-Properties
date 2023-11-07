@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="./unsupported-feature-nuance.css" />
   </head>
   <body>
+    <h2>
+      You can click on any of three bordered areas below to see the relevant
+      CSS.
+    </h2>
     <div class="target target-1" target1>
       <p>
         In this example, we see that a browser will throw out an unsupported
@@ -57,6 +61,26 @@
         with a negation syntax as in <em>(not tom(4))</em> to set the
         background-color of this area to blue and the font color to white.
       </p>
+      <dialog>
+        <pre><style>
+.target-3 {
+  --color: tom(4);
+  background: red;
+  background: var(--color);
+}
+
+  @supports (not tom(4)) {
+  .target-3 {
+    --color: blue;
+  }
+  .target-3 > p {
+    color: white;
+  }
+}
+
+</style></pre>
+        <button>Close</button>
+      </dialog>
     </div>
   </body>
   <script>
@@ -64,43 +88,57 @@
 
     function createEventListeners() {
       document
-        .querySelectorAll(".target")
-        .forEach((radio) =>
-          radio.addEventListener("click", toggleCSSVisibility)
+        .querySelectorAll(".target, .target > p")
+        .forEach((element) =>
+          element.addEventListener("click", toggleCSSVisibility)
         );
-
-      //   document
-      //     .querySelector(".target-1")
-      //     .addEventListener("click", toggleCSSVisibility);
 
       document
         .querySelectorAll(".target > dialog > button")
         .forEach((radio) => radio.addEventListener("click", closeDialog));
 
-      // document
-      // .querySelector(".target-1 > dialog > button")
-      // .addEventListener("click", closeDialog);
-
       document
         .querySelectorAll(".target > dialog")
         .forEach((radio) => radio.addEventListener("click", closeDialog));
 
-      //   document
-      //     .querySelector(".target-1 > dialog")
-      //     .addEventListener("click", closeDialog);
-
       /* *** Helper functions *** */
 
       function toggleCSSVisibility(e) {
-        var displayValue = document.querySelector("style").style.display;
+        var dialog;
+        switch (e.target.parentElement.tagName) {
+          case "BODY":
+          case "DIV":
+            if (e.target.tagName == "P") {
+              dialog = e.target.parentElement;
+              e.stopPropagation();
+            } else dialog = e.target;
+            break;
+          case "DIALOG":
+            dialog = e.target.parentElement;
+            break;
+        }
+
+        var displayValue = dialog.querySelector("style").style.display;
         if (displayValue == "none" || displayValue == "") {
-          document.querySelector("style").style.display = "block";
-          document.querySelector("dialog").showModal();
-        } else document.querySelector("style").style.display = "none";
+          dialog.querySelector("style").style.display = "block";
+          dialog.querySelector("dialog").showModal();
+        } else {
+          dialog.querySelector("style").style.display = "none";
+        }
       }
 
       function closeDialog(e) {
-        document.querySelector("dialog").close();
+        var dialog;
+        switch (e.target.parentElement.tagName) {
+          case "BODY":
+          case "DIV":
+            dialog = e.target;
+            break;
+          case "DIALOG":
+            dialog = e.target.parentElement;
+            break;
+        }
+        dialog.close();
       }
     }
   </script>
