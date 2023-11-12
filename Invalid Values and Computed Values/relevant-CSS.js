@@ -18,26 +18,26 @@ function createEventListeners() {
   /* *** Helper functions *** */
 
   function toggleCSSVisibility(e) {
-    var dialog;
+    var container;
     switch (e.target.parentElement.tagName) {
       case "BODY":
       case "DIV":
         if (e.target.tagName == "P") {
-          dialog = e.target.parentElement;
+          container = e.target.parentElement;
           e.stopPropagation();
-        } else dialog = e.target;
+        } else container = e.target;
         break;
       case "DIALOG":
-        dialog = e.target.parentElement;
+        container = e.target.parentElement;
         break;
     }
 
-    var displayValue = dialog.querySelector("style").style.display;
+    var displayValue = container.querySelector("style").style.display;
     if (displayValue == "none" || displayValue == "") {
-      dialog.querySelector("style").style.display = "block";
-      dialog.querySelector("dialog").showModal();
+      container.querySelector("style").style.display = "block";
+      container.querySelector("dialog").showModal();
     } else {
-      dialog.querySelector("style").style.display = "none";
+      container.querySelector("style").style.display = "none";
     }
   }
 

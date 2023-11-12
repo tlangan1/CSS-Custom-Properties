@@ -88,72 +88,15 @@
 1. Used Value Time: This is the final stage of CSS resolution. This is when `most` values obtain their actual value.
 1. The concept of `Invalid At Computed Value Time` or `IACVT` for short is the name given to the situation at computed value time when the value on the right hand side of a property assignment is not valid for that property. The browser will treat this situation as being equivalent to the assignment of the `unset` keyword.
 1. The `unset` CSS value is the same as `initial` for non-inherited properties and `inherit` for inherited properties.
-1. It is important to understand the difference between how a browser handles invalid at computed value time and an unsupported CSS feature. An unsupported feature is thrown away at parse time and this makes a big difference. Consider the following two examples:
-
-   ```
-   target-1 {
-       --color: 2px;
-       background: red;
-       background: --color;
-   }
-
-   target-2 {
-       background: red;
-       background: tom(4)
-   }
-   ```
-
-   In the first example the `background: red` statement is thrown away at parse time; hence, at computed value time --color has an invalid value of tom(4) and that will result in the default background color, `transparent`. In the second example the `background: tom(4)` is thrown away at parse time because as of 2023 tom() is not a supported feature in any browser and the background will be `red`. See parse-vs-computed-time.html .test-2 and .test-3 divs that illustrate this.
-
-1. Note that a custom property is even more flexible than a variable in JavaScript and, as such, can be assigned anything. The browser makes no attempt at parse time to `validate` the value being assigned. In the example above the browser accepts `--color: tom(4)`.
-1. See `parse-vs-computed-time.html` in the `Invalid Values and Computed Values` folder for an example of how differently the browser handles the use of a custom property to assign an invalid value to a property as opposed to simply assigning the invalid value to the property.
-
-   ```
-   @property --custom-property-color {
-        syntax: "<color>";
-        inherits: true;
-        initial-value: skyblue;
-    }
-
-    div {
-        height: 30vh;
-        margin-bottom: 2vh;
-    }
-
-    .test-1 {
-        /* *** these two lines result in identical behavior *** */
-        --custom-property-color: lch(100% 100 0px);
-        /* --custom-property-color: g(100% 100 0px); */
-        background: red;
-        background: var(--custom-property-color);
-    }
-
-   .test-2 {
-        height: 50vh;
-        width: 100vw;
-        --color: lch(100% 100 0px);
-        background: red;
-        background: var(--color);
-   }
-
-   .test-3 {
-        height: 50vh;
-        width: 100vw;
-        background: red;
-        background: lch(100% 100 0px);
-   }
-   ```
-
-   The `test-2` div has a transparent background while the `test-3` div has a red background even though the two sets of code might be expected to behave the same way. This is because the syntax of custom properties is checked at computed value time, not at parse time. The `test-1` div behaves the same as the `test-2` div because registered properties, like custom properties are have their syntax checked at computed-value time not parse time.
-
-1. Performance considerations motivated the behavior illustrated in the `parse-vs-computed-time` example. If custom properties values were verified by the browser at then the browser would have to parse the CSS every time the value of a custom variable changed.
-1. The most important observation I made concerning custom properties is how they behave as RHS values. Since a custom property is a variable, the browser will allow it to be assigned anything as the browser does not know how and when it will be used. See one-custom-variable-does-everything.html for an extreme example of this. In this example the custom property --some-custom-property has the following values:
+1. A custom property is even more flexible than a variable in JavaScript and, as such, can be assigned anything. At parse time the browser makes no attempt to `validate` the value being assigned. See parse-vs-computed-time.html for an example of this, a detailed explanation of what the browser is doing and how the @property at rule can be used to `register` a custom property ane provide a fallback in the event that the custom property has an invalid value.
+1. See one-custom-variable-does-everything.html for an extreme example of this flexibility. In this example the custom property --some-custom-property has the following values:
    ```
    --some-custom-property: red;
    --some-custom-property: 50vh;
    --some-custom-property: 20px 50px 50px 30px;
    --some-custom-property: 2s;
    ```
+1. This somewhat unintuitive behavior was motivated by performance consideration. If custom properties values were verified by the browser at parse time then the browser would have to re-parse all the CSS every time the value of a custom variable changed.
 
 ### @supports & Custom Properties
 
